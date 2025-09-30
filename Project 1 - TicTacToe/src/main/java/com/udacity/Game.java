@@ -16,6 +16,7 @@ public class Game {
     private char [][] grid; // a 2D array of chars representing the game grid
     private int freeSpots; // counts the number of empty spots remaining on the board (starts from 9  and counts down)
     private static GameUI gui;
+    private boolean hasMinMovesBeforeCheck = true;
 
     /**
      * Create a new single player game
@@ -192,6 +193,10 @@ public class Game {
     }
 
     private String isThereWinningPattern(List<String> patterns) {
+        if (hasMinMovesBeforeCheck // Don't check if there hasn't been enough moves made for a possible win.
+                && freeSpots >= 5) { // Earliest win is 5 moves min both players combined moves.
+            return "None";
+        }
         System.out.println("Patterns: " + patterns);
         String winner = patterns.stream()
                 .filter(p -> p != null)
