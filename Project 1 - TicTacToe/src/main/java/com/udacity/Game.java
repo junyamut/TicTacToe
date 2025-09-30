@@ -18,6 +18,14 @@ public class Game {
     private static GameUI gui;
     private boolean hasMinMovesBeforeCheck = true;
 
+    public void setFreeSpots(int freeSpots) {
+        this.freeSpots = freeSpots;
+    }
+
+    public void setHasMinMovesBeforeCheck(boolean hasMinMovesBeforeCheck) {
+        this.hasMinMovesBeforeCheck = hasMinMovesBeforeCheck;
+    }
+
     /**
      * Create a new single player game
      *
@@ -140,7 +148,6 @@ public class Game {
                 turn = 'x';
             }
         }
-        return;
     }
 
 
@@ -166,12 +173,12 @@ public class Game {
             int j = 0;
             int k = 2;
             while(i <=2) {
-                d2Holder.append(grid[i][k]); // vertical 2 - top right to bottom left
+                d2Holder.append(grid[i][k]); // diagonal 2 - top right to bottom left
                 while(j <= 2) {
                     vHolder.append(grid[i][j]); // vertical from left to right columns
                     hHolder.append(grid[j][i]); // horizontal from top to bottom rows
                     if (i == j) {
-                        d1Holder.append(grid[i][j]); // vertical 1 - top left to bottom right
+                        d1Holder.append(grid[i][j]); // diagonal 1 - top left to bottom right
                     }
                     if (k == 0) {
                         k = 2;
@@ -223,7 +230,7 @@ public class Game {
      * Main function
      * @param args command line arguments
      */
-    public static void main(String args[]){
+    public static void main(String[] args){
         Game game = new Game();
         gui = new GameUI(game);
     }
