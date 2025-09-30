@@ -1,6 +1,9 @@
 package com.udacity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by udacity 2016
@@ -148,10 +151,67 @@ public class Game {
      * @param grid 2D array of characters representing the game board
      * @return String indicating the outcome of the game: "X wins" or "O wins" or "Tie" or "None"
      */
-    public String checkGameWinner(char [][]grid){
-        String result = "None";
-        //Student code goes here ...
-        return result;
+    public String checkGameWinner(char [][]grid) {
+        List<String> patterns = new ArrayList<>();
+        StringBuilder vHolder = new StringBuilder();
+        StringBuilder hHolder = new StringBuilder();
+        StringBuilder d1Holder = new StringBuilder();
+        StringBuilder d2Holder = new StringBuilder();
+        // Vertical check   -   columns 1 to 3
+        // Horizontal check -   rows 1 to 3
+        // Diagonal check   -   2 lines only
+        {
+            int i = 0;
+            int j = 0;
+            int k = 2;
+            while(i <=2) {
+                d2Holder.append(grid[i][k]); // vertical 2 - top right to bottom left
+                while(j <= 2) {
+                    vHolder.append(grid[i][j]); // vertical from left to right columns
+                    hHolder.append(grid[j][i]); // horizontal from top to bottom rows
+                    if (i == j) {
+                        d1Holder.append(grid[i][j]); // vertical 1 - top left to bottom right
+                    }
+                    if (k == 0) {
+                        k = 2;
+                    }
+                    k--;
+                    j++;
+                }
+                patterns.add(String.valueOf(vHolder));
+                patterns.add(String.valueOf(hHolder));
+                vHolder.setLength(0);
+                hHolder.setLength(0);
+                j = 0;
+                i++;
+            }
+            patterns.add(String.valueOf(d1Holder));
+            patterns.add(String.valueOf(d2Holder));
+        }
+        return isThereWinningPattern(patterns);
+    }
+
+    private String isThereWinningPattern(List<String> patterns) {
+        System.out.println("Patterns: " + patterns);
+        String winner = patterns.stream()
+                .filter(p -> p != null)
+                .map(p -> {
+                    if ("xxx".equals(p)) {
+                        return "X wins";
+                    }
+                    if ("ooo".equals(p)) {
+                        return "O wins";
+                    }
+                    return "";
+                })
+                .collect(Collectors.joining());
+        if (!winner.isEmpty()) {
+            return winner;
+        }
+        if (freeSpots == 0) {
+            return "Tie";
+        }
+        return "None";
     }
 
     /**
