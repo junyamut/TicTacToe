@@ -5,10 +5,9 @@
 *Description: This repository contains work based on an exercise from a Udacity course. Full credit for the original concept and most of the code is due to Udacity.*
 
 ### Notes
-* This is based an old Udacity Java exercise. 
 * Intended to introduce Java newbies to 2-dimensional arrays.
-* At the same time, to practice on looping strategies to go through such an array.
-* Code logic to check if there is already a game winner was implemented by _yours truly_.
+* At the same time, to practice on iteration strategies through such a data type.
+* Code logic to check if there is already a game winner were the only additions by _yours truly_.
 
 ---
 
